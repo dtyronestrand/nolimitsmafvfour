@@ -16,7 +16,7 @@
 	<div class="prose prose-inverted mx-auto mt-6 mx-w-md text-balance text-center text-slate-300 text-lg md:text-xl">
 		<PrismicRichText field={slice.primary.body} />
 	</div>
-	<div class="mt-20 grid gap-16 ">
+	<div class="mt-20 gap-16 flex flex-col md:flex-row">
 		
 		{#each locations as location, index}
 		
@@ -25,10 +25,10 @@
 				<h2 class="mt-6 prose prose-invert text-center text-balance max-w-xl mb-6 text-5xl mx-auto">
 					<PrismicText field={location.data.title} />
 				</h2>
-				<div class="max-w-[400px] max-h-[400px] justify-center text-center">
+				<div class="max-w-[350px] max-h-[350px] justify-center text-center">
 					<PrismicImage field={location.data.image} />
 		
-				<ButtonLink document={location} class="mx-auto mt-6"><PrismicText field={location.data.title}/> Details</ButtonLink>
+				<ButtonLink document={location} class="mx-auto mt-6"> Details</ButtonLink>
 				</div>
 		</div>
 		{/each}
