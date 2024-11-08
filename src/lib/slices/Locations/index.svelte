@@ -26,7 +26,7 @@
 					<PrismicText field={location.data.title} />
 				</h2>
 				<div class="max-w-[350px] max-h-[350px] justify-center text-center">
-					<PrismicImage field={location.data.image} />
+					<PrismicImage class="mx-auto max-w-[15rem]" field={location.data.image} />
 		
 				<ButtonLink document={location} class="mx-auto mt-6"> Details</ButtonLink>
 				</div>
