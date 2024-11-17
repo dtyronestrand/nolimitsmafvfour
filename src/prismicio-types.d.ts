@@ -281,6 +281,70 @@ export type ProgramDocument<Lang extends string = string> = prismic.PrismicDocum
 	Lang
 >;
 
+type ProtectedDocumentDataSlicesSlice = PageMakerSlice;
+
+/**
+ * Content for Protected documents
+ */
+interface ProtectedDocumentData {
+	/**
+	 * Slice Zone field in *Protected*
+	 *
+	 * - **Field Type**: Slice Zone
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: protected.slices[]
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/field#slices
+	 */
+	slices: prismic.SliceZone<ProtectedDocumentDataSlicesSlice> /**
+	 * Meta Title field in *Protected*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: A title of the page used for social media and search engines
+	 * - **API ID Path**: protected.meta_title
+	 * - **Tab**: SEO & Metadata
+	 * - **Documentation**: https://prismic.io/docs/field#key-text
+	 */;
+	meta_title: prismic.KeyTextField;
+
+	/**
+	 * Meta Description field in *Protected*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: A brief summary of the page
+	 * - **API ID Path**: protected.meta_description
+	 * - **Tab**: SEO & Metadata
+	 * - **Documentation**: https://prismic.io/docs/field#key-text
+	 */
+	meta_description: prismic.KeyTextField;
+
+	/**
+	 * Meta Image field in *Protected*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: protected.meta_image
+	 * - **Tab**: SEO & Metadata
+	 * - **Documentation**: https://prismic.io/docs/field#image
+	 */
+	meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Protected document from Prismic
+ *
+ * - **API ID**: `protected`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ProtectedDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<
+	Simplify<ProtectedDocumentData>,
+	'protected',
+	Lang
+>;
+
 /**
  * Item in *Settings → Navigation*
  */
@@ -381,7 +445,12 @@ export type SettingsDocument<Lang extends string = string> = prismic.PrismicDocu
 	Lang
 >;
 
-export type AllDocumentTypes = LocationDocument | PageDocument | ProgramDocument | SettingsDocument;
+export type AllDocumentTypes =
+	| LocationDocument
+	| PageDocument
+	| ProgramDocument
+	| ProtectedDocument
+	| SettingsDocument;
 
 /**
  * Item in *Bento → Default → Primary → Box*
@@ -851,6 +920,93 @@ type NewsItemSliceVariation = NewsItemSliceDefault;
 export type NewsItemSlice = prismic.SharedSlice<'news_item', NewsItemSliceVariation>;
 
 /**
+ * Item in *PageMaker → Default → Primary → Elements*
+ */
+export interface PageMakerSliceDefaultPrimaryElementsItem {
+	/**
+	 * Image field in *PageMaker → Default → Primary → Elements*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: page_maker.default.primary.elements[].image
+	 * - **Documentation**: https://prismic.io/docs/field#image
+	 */
+	image: prismic.ImageField<never>;
+
+	/**
+	 * text field in *PageMaker → Default → Primary → Elements*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: page_maker.default.primary.elements[].text
+	 * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+	 */
+	text: prismic.RichTextField;
+
+	/**
+	 * Link field in *PageMaker → Default → Primary → Elements*
+	 *
+	 * - **Field Type**: Link
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: page_maker.default.primary.elements[].link
+	 * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+	 */
+	link: prismic.LinkField;
+
+	/**
+	 * Embed field in *PageMaker → Default → Primary → Elements*
+	 *
+	 * - **Field Type**: Embed
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: page_maker.default.primary.elements[].embed
+	 * - **Documentation**: https://prismic.io/docs/field#embed
+	 */
+	embed: prismic.EmbedField;
+}
+
+/**
+ * Primary content in *PageMaker → Default → Primary*
+ */
+export interface PageMakerSliceDefaultPrimary {
+	/**
+	 * Elements field in *PageMaker → Default → Primary*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: page_maker.default.primary.elements[]
+	 * - **Documentation**: https://prismic.io/docs/field#group
+	 */
+	elements: prismic.GroupField<Simplify<PageMakerSliceDefaultPrimaryElementsItem>>;
+}
+
+/**
+ * Default variation for PageMaker Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PageMakerSliceDefault = prismic.SharedSliceVariation<
+	'default',
+	Simplify<PageMakerSliceDefaultPrimary>,
+	never
+>;
+
+/**
+ * Slice variation for *PageMaker*
+ */
+type PageMakerSliceVariation = PageMakerSliceDefault;
+
+/**
+ * PageMaker Shared Slice
+ *
+ * - **API ID**: `page_maker`
+ * - **Description**: PageMaker
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PageMakerSlice = prismic.SharedSlice<'page_maker', PageMakerSliceVariation>;
+
+/**
  * Item in *Programs → Default → Primary → Programs*
  */
 export interface ProgramsSliceDefaultPrimaryProgramsItem {
@@ -1086,6 +1242,9 @@ declare module '@prismicio/client' {
 			ProgramDocument,
 			ProgramDocumentData,
 			ProgramDocumentDataSlicesSlice,
+			ProtectedDocument,
+			ProtectedDocumentData,
+			ProtectedDocumentDataSlicesSlice,
 			SettingsDocument,
 			SettingsDocumentData,
 			SettingsDocumentDataNavigationItem,
@@ -1113,6 +1272,11 @@ declare module '@prismicio/client' {
 			NewsItemSliceDefaultPrimary,
 			NewsItemSliceVariation,
 			NewsItemSliceDefault,
+			PageMakerSlice,
+			PageMakerSliceDefaultPrimaryElementsItem,
+			PageMakerSliceDefaultPrimary,
+			PageMakerSliceVariation,
+			PageMakerSliceDefault,
 			ProgramsSlice,
 			ProgramsSliceDefaultPrimaryProgramsItem,
 			ProgramsSliceDefaultPrimary,

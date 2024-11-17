@@ -5,6 +5,7 @@ import Cta from './Cta/index.svelte';
 import Hero from './Hero/index.svelte';
 import Locations from './Locations/index.svelte';
 import Showcase from './Showcase/index.svelte';
+import PageMaker from './PageMaker/index.svelte';
 import Programs from './Programs/index.svelte';
 import RichText from './RichText/index.svelte';
 import Staff from './Staff/index.svelte';
@@ -15,6 +16,7 @@ export const components = {
 	hero: Hero,
 	locations: Locations,
 	news_item: Showcase,
+	page_maker: PageMaker,
 	programs: Programs,
 	rich_text: RichText,
 	staff: Staff

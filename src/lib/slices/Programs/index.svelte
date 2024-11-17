@@ -18,17 +18,22 @@
 	</div>
 	<div class="mt-20 grid gap-16">
 		{#each programs as program, index}
-		<div class= "glass-container relative rounded-lg bg-gradient-to-b from-orange-500 to-orange-700 p-4 mb-6 md:rounded-xl">
+		<div class= "card relative rounded-lg mb-6 md:rounded-xl">
 			<div class="glow absolute -z-10 aspect-square w-full max-w-xl h-full rounded-full bg-yellow-400/50 blur-[160px] filter"/>
-	
+			<div class="card-header ">
+				<PrismicImage  class="mx-auto" field={program.data.image} alt=''/>
+			</div>
+			<sction >
+
 				<h3 class="text-balance text-center text-4xl mb-3">
 					<PrismicText field={program.data.title}/>
 				</h3>
 				<div class="mx-auto text-balance text-center ax-w-md">
-						<PrismicText field={program.data.tag_line} />
+					<PrismicText field={program.data.tag_line} />
 				</div>
-				<div class="text-center mx-auto mt-6">
-					<PrismicImage  class="mx-auto" field={program.data.image} alt=''/>
+			</sction>
+				<div class="card-footer text-center mx-auto mt-6">
+				
 					<ButtonLink document={program} class="z-10 mt-7 amx-auto fter:absolute after:inset-0 hover:underline">More about <PrismicText field={program.data.title}/></ButtonLink>
 				</div>
 			
