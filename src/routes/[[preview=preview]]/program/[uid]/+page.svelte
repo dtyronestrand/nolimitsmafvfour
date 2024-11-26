@@ -2,6 +2,7 @@
 	import { SliceZone } from '@prismicio/svelte';
     import Bounded from '$lib/components/Bounded.svelte';
 	import { components } from '$lib/slices';
+	import {AppRail, AppRailTile, AppRailAnchor} from '@skeletonlabs/skeleton'
     import TriangleGrid from '$lib/components/TriangleGrid.svelte';
     import {PrismicText, PrismicImage} from '@prismicio/svelte';
 
